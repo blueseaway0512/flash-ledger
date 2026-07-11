@@ -1,0 +1,6 @@
+{
+  "name": "智能理财记账",
+  "description": "一款融合 Gemini AI 智能分析与自然语言快捷记账的个人理财与记账应用。提供收支看板、类别预算、存钱目标、智能记账助手及财务诊断分析。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

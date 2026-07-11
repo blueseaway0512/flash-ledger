@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>小闪智能记账 - 极简AI记账与理财分析</title>
+    
+    <!-- PWA Manifest & Colors -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0f172a" />
+    
+    <!-- iOS PWA Specific Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="小闪记账" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+    
+    <!-- Standard PWA Icon -->
+    <link rel="icon" type="image/png" href="/icon.png" />
+  </head>
+  <body class="bg-slate-50 selection:bg-emerald-500/30">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Register Service Worker — 开发环境跳过(让HMR正常工作)，PWA环境下自动检测更新 -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        const isDev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+        
+        if (!isDev) {
+          window.addEventListener('load', () => {
+            // 注册SW并监听更新
+            navigator.serviceWorker.register('/sw.js?' + Date.now())
+              .then((reg) => {
+                console.log('Service Worker 注册成功:', reg.scope);
+                
+                // 检测是否有新版本SW在等待激活
+                if (reg.waiting) {
+                  console.log('检测到新版本，立即刷新...');
+                  reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+                  window.location.reload();
+                }
+
+                // 监听新SW安装
+                reg.addEventListener('updatefound', () => {
+                  const newWorker = reg.installing;
+                  if (newWorker) {
+                    newWorker.addEventListener('statechange', () => {
+                      if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        console.log('新版本已下载，准备刷新...');
+                        newWorker.postMessage({ type: 'SKIP_WAITING' });
+                        window.location.reload();
+                      }
+                    });
+                  }
+                });
+              })
+              .catch((err) => console.error('Service Worker 注册失败:', err));
+
+            // 监听SW消息
+            navigator.serviceWorker.addEventListener('message', (event) => {
+              if (event.data && event.data.type === 'SKIP_WAITING') {
+                window.location.reload();
+              }
+            });
+          });
+        } else {
+          console.log('开发模式，跳过 Service Worker 注册以便 HMR 正常工作');
+        }
+      }
+    </script>
+  </body>
+</html>

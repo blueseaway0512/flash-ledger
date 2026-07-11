@@ -1,0 +1,24 @@
+{
+  "short_name": "小闪记账",
+  "name": "小闪智能理财记账",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0f172a",
+  "theme_color": "#059669",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "融合 Gemini AI 智能分析与自然语言记账的个人理财与记账应用。"
+}
