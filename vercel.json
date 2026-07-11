@@ -3,16 +3,14 @@
   "builds": [
     {
       "src": "api/index.mjs",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["dist/**"]
+      }
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index.mjs" },
-    { "src": "/assets/(.*)", "dest": "/dist/$1" },
-    { "src": "/sw.js", "dest": "/dist/sw.js" },
-    { "src": "/manifest.json", "dest": "/dist/manifest.json" },
-    { "src": "/icon.png", "dest": "/dist/icon.png" },
-    { "src": "/favicon.ico", "dest": "/dist/favicon.ico" },
-    { "src": "/(.*)", "dest": "/api/index.mjs" }
+    { "src": "/api/(.*)", "dest": "api/index.mjs" },
+    { "src": "/(.*)", "dest": "api/index.mjs" }
   ]
 }
