@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, memo } from 'react';
 import { CategoryBudget, EXPENSE_CATEGORIES, Transaction } from '../types';
 import { CategoryIcon } from './Dashboard';
 import { Edit2, ShieldAlert, BadgePercent, Check, X, ShieldCheck } from 'lucide-react';
@@ -10,7 +10,7 @@ interface BudgetsProps {
   onSaveBudget: (category: string, amount: number) => void;
 }
 
-export default function Budgets({ budgets, transactions, onSaveBudget }: BudgetsProps) {
+export default memo(function Budgets({ budgets, transactions, onSaveBudget }: BudgetsProps) {
   // Config state for each category
   const [editingCategory, setEditingCategory] = useState<string | null>(null);
   const [editAmount, setEditAmount] = useState('');
@@ -260,4 +260,4 @@ export default function Budgets({ budgets, transactions, onSaveBudget }: Budgets
       </div>
     </div>
   );
-}
+});

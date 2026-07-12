@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import { useState, useMemo, useRef, memo } from 'react';
 import { 
   Transaction, TransactionType, EXPENSE_CATEGORIES, INCOME_CATEGORIES 
 } from '../types';
@@ -18,7 +18,7 @@ interface LedgerProps {
   onImportTransactions: (ts: Transaction[]) => void;
 }
 
-export default function Ledger({ 
+export default memo(function Ledger({ 
   transactions, 
   onAddTransaction, 
   onUpdateTransaction, 
@@ -560,4 +560,4 @@ export default function Ledger({
       </div>
     </div>
   );
-}
+});

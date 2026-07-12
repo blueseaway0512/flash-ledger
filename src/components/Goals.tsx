@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { SavingGoal } from '../types';
 import { Target, PiggyBank, Plus, Calendar, Coins, Trash2, Check, Sparkles, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -19,7 +19,7 @@ const PALETTE_COLORS = [
   'bg-indigo-500'
 ];
 
-export default function Goals({ goals, onAddGoal, onDepositGoal, onDeleteGoal }: GoalsProps) {
+export default memo(function Goals({ goals, onAddGoal, onDepositGoal, onDeleteGoal }: GoalsProps) {
   // New goal state
   const [showAddForm, setShowAddForm] = useState(false);
   const [name, setName] = useState('');
@@ -314,4 +314,4 @@ export default function Goals({ goals, onAddGoal, onDepositGoal, onDeleteGoal }:
       )}
     </div>
   );
-}
+});

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, memo } from 'react';
 import { 
   Transaction, CategoryBudget, SavingGoal, ChatMessage, FinancialReport 
 } from '../types';
@@ -79,7 +79,7 @@ interface AiAdvisorProps {
   onAddTransactionFromAi: (t: Omit<Transaction, 'id'>) => void;
 }
 
-export default function AiAdvisor({ 
+export default memo(function AiAdvisor({ 
   transactions, 
   budgets, 
   goals, 
@@ -705,4 +705,4 @@ export default function AiAdvisor({
       </div>
     </div>
   );
-}
+});

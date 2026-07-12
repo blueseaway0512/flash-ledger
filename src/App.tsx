@@ -266,16 +266,18 @@ export default function App() {
       {/* 3. 主内容渲染舞台 - 移动端底部留 padding 给 Tab Bar */}
       <main className="flex-1 p-4 md:p-8 overflow-y-auto max-w-7xl mx-auto w-full pb-24 md:pb-8">
         <div className="max-w-6xl mx-auto">
-          {activeTab === 'dashboard' && (
+          {/* 所有标签页保持挂载状态，用 CSS 控制显隐。
+              避免条件卸载/重装导致 motion 动画重复播放和切换卡顿。 */}
+          <div style={{ display: activeTab === 'dashboard' ? '' : 'none' }}>
             <Dashboard 
               transactions={transactions} 
               budgets={budgets} 
               goals={goals} 
               onNavigate={(tab) => setActiveTab(tab)}
             />
-          )}
+          </div>
 
-          {activeTab === 'ledger' && (
+          <div style={{ display: activeTab === 'ledger' ? '' : 'none' }}>
             <Ledger 
               transactions={transactions} 
               onAddTransaction={handleAddTransaction}
@@ -283,33 +285,33 @@ export default function App() {
               onDeleteTransaction={handleDeleteTransaction}
               onImportTransactions={handleImportTransactions}
             />
-          )}
+          </div>
 
-          {activeTab === 'budgets' && (
+          <div style={{ display: activeTab === 'budgets' ? '' : 'none' }}>
             <Budgets 
               budgets={budgets} 
               transactions={transactions} 
               onSaveBudget={handleSaveBudget}
             />
-          )}
+          </div>
 
-          {activeTab === 'goals' && (
+          <div style={{ display: activeTab === 'goals' ? '' : 'none' }}>
             <Goals 
               goals={goals} 
               onAddGoal={handleAddGoal} 
               onDepositGoal={handleDepositGoal} 
               onDeleteGoal={handleDeleteGoal}
             />
-          )}
+          </div>
 
-          {activeTab === 'ai' && (
+          <div style={{ display: activeTab === 'ai' ? '' : 'none' }}>
             <AiAdvisor 
               transactions={transactions} 
               budgets={budgets} 
               goals={goals} 
               onAddTransactionFromAi={handleAddTransaction}
             />
-          )}
+          </div>
         </div>
       </main>
 

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, memo } from 'react';
 import { 
   Transaction, CategoryBudget, SavingGoal, EXPENSE_CATEGORIES, CATEGORY_ICONS 
 } from '../types';
@@ -38,7 +38,7 @@ interface DashboardProps {
   onNavigate: (tab: string) => void;
 }
 
-export default function Dashboard({ transactions, budgets, goals, onNavigate }: DashboardProps) {
+export default memo(function Dashboard({ transactions, budgets, goals, onNavigate }: DashboardProps) {
   const [hoveredDataPoint, setHoveredDataPoint] = useState<{ date: string; balance: number } | null>(null);
 
   // 1. Calculations
@@ -603,4 +603,4 @@ export default function Dashboard({ transactions, budgets, goals, onNavigate }: 
       </div>
     </div>
   );
-}
+});
