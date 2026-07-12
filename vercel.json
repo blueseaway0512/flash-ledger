@@ -1,20 +1,10 @@
 {
-  "version": 2,
-  "buildCommand": "vite build",
-  "outputDirectory": "dist",
-  "builds": [
-    {
-      "src": "api/index.mjs",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/**"]
-      }
+  "functions": {
+    "api/index.mjs": {
+      "includeFiles": "dist/**"
     }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "api/index.mjs" },
-    { "src": "/assets/(.*)", "headers": { "cache-control": "public, max-age=31536000, immutable" } },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/index.mjs" }
   ]
 }
